@@ -5,7 +5,7 @@ export interface IChico extends Document {
   nombre: string;
   apellido: string;
   edad: number;
-  microId?: mongoose.Types.ObjectId;
+  microId?: mongoose.Types.ObjectId | null;
 }
 
 const ChicoSchema: Schema = new Schema({

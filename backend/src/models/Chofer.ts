@@ -5,7 +5,7 @@ export interface IChofer extends Document {
   nombre: string;
   apellido: string;
   licencia: string;
-  microId?: mongoose.Types.ObjectId;
+  microId?: mongoose.Types.ObjectId | null;
 }
 
 const ChoferSchema: Schema = new Schema({

@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Chico, { IChico } from '../models/Chico';
 import Micro from '../models/Micro';
 import { CreateChicoDto, UpdateChicoDto } from '../models/dtos/ChicoDto';
@@ -68,7 +69,7 @@ export class ChicoService {
       throw new Error('Micro has reached maximum capacity');
     }
 
-    chico.microId = micro._id;
+    chico.microId = micro._id as mongoose.Types.ObjectId;
     return await chico.save();
   }
 
@@ -82,7 +83,7 @@ export class ChicoService {
       throw new Error('Chico is not assigned to any micro');
     }
 
-    chico.microId = undefined;
+    chico.microId = null;
     return await chico.save();
   }
 }

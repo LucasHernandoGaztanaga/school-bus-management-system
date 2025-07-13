@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Micro, { IMicro } from '../models/Micro';
 import Chico from '../models/Chico';
 import Chofer from '../models/Chofer';
@@ -55,7 +56,7 @@ export class MicroService {
     }
 
     if (micro.choferId) {
-      await Chofer.findByIdAndUpdate(micro.choferId, { microId: undefined });
+      await Chofer.findByIdAndUpdate(micro.choferId, { microId: null });
     }
 
     await Micro.deleteOne({ patente });
@@ -80,8 +81,8 @@ export class MicroService {
       throw new Error('Chofer already assigned to another micro');
     }
 
-    micro.choferId = chofer._id;
-    chofer.microId = micro._id;
+    micro.choferId = chofer._id as mongoose.Types.ObjectId;
+    chofer.microId = micro._id as mongoose.Types.ObjectId;
 
     await chofer.save();
     return await micro.save();
@@ -97,8 +98,8 @@ export class MicroService {
       throw new Error('Micro does not have a chofer assigned');
     }
 
-    await Chofer.findByIdAndUpdate(micro.choferId, { microId: undefined });
-    micro.choferId = undefined;
+    await Chofer.findByIdAndUpdate(micro.choferId, { microId: null });
+    micro.choferId = null;
 
     return await micro.save();
   }

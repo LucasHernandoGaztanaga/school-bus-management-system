@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Chofer, { IChofer } from '../models/Chofer';
 import Micro from '../models/Micro';
 import { CreateChoferDto, UpdateChoferDto } from '../models/dtos/ChoferDto';
@@ -42,7 +43,7 @@ export class ChoferService {
     }
 
     if (chofer.microId) {
-      await Micro.findByIdAndUpdate(chofer.microId, { choferId: undefined });
+      await Micro.findByIdAndUpdate(chofer.microId, { choferId: null });
     }
 
     await Chofer.deleteOne({ dni });
@@ -67,8 +68,8 @@ export class ChoferService {
       throw new Error('Micro already has a chofer assigned');
     }
 
-    chofer.microId = micro._id;
-    micro.choferId = chofer._id;
+    chofer.microId = micro._id as mongoose.Types.ObjectId;
+    micro.choferId = chofer._id as mongoose.Types.ObjectId;
 
     await micro.save();
     return await chofer.save();
@@ -84,8 +85,8 @@ export class ChoferService {
       throw new Error('Chofer is not assigned to any micro');
     }
 
-    await Micro.findByIdAndUpdate(chofer.microId, { choferId: undefined });
-    chofer.microId = undefined;
+    await Micro.findByIdAndUpdate(chofer.microId, { choferId: null });
+    chofer.microId = null;
 
     return await chofer.save();
   }

@@ -4,7 +4,7 @@ export interface IMicro extends Document {
   patente: string;
   modelo: string;
   capacidad: number;
-  choferId?: mongoose.Types.ObjectId;
+  choferId?: mongoose.Types.ObjectId | null;
 }
 
 const MicroSchema: Schema = new Schema({
