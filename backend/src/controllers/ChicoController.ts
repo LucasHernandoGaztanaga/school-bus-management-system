@@ -8,7 +8,7 @@ export class ChicoController {
     this.chicoService = new ChicoService();
   }
 
-  findAll = async (req: Request, res: Response, next: NextFunction) => {
+  findAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const chicos = await this.chicoService.findAll();
       res.json({
@@ -20,16 +20,24 @@ export class ChicoController {
     }
   };
 
-  findByDni = async (req: Request, res: Response, next: NextFunction) => {
+  findByDni = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
-      const chico = await this.chicoService.findByDni(dni);
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
       
+      const chico = await this.chicoService.findByDni(dni);
       if (!chico) {
-        return res.status(404).json({
+        res.status(404).json({
           success: false,
           message: 'Chico not found'
         });
+        return;
       }
 
       res.json({
@@ -41,7 +49,7 @@ export class ChicoController {
     }
   };
 
-  create = async (req: Request, res: Response, next: NextFunction) => {
+  create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const chico = await this.chicoService.create(req.body);
       res.status(201).json({
@@ -53,9 +61,17 @@ export class ChicoController {
     }
   };
 
-  update = async (req: Request, res: Response, next: NextFunction) => {
+  update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
+      
       const chico = await this.chicoService.update(dni, req.body);
       res.json({
         success: true,
@@ -66,9 +82,17 @@ export class ChicoController {
     }
   };
 
-  delete = async (req: Request, res: Response, next: NextFunction) => {
+  delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
+      
       await this.chicoService.delete(dni);
       res.json({
         success: true,
@@ -79,9 +103,17 @@ export class ChicoController {
     }
   };
 
-  assignToMicro = async (req: Request, res: Response, next: NextFunction) => {
+  assignToMicro = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
+      
       const { microPatente } = req.body;
       const chico = await this.chicoService.assignToMicro(dni, microPatente);
       res.json({
@@ -93,9 +125,17 @@ export class ChicoController {
     }
   };
 
-  removeFromMicro = async (req: Request, res: Response, next: NextFunction) => {
+  removeFromMicro = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
+      
       const chico = await this.chicoService.removeFromMicro(dni);
       res.json({
         success: true,

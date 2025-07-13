@@ -8,7 +8,7 @@ export class ChoferController {
     this.choferService = new ChoferService();
   }
 
-  findAll = async (req: Request, res: Response, next: NextFunction) => {
+  findAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const choferes = await this.choferService.findAll();
       res.json({
@@ -20,16 +20,24 @@ export class ChoferController {
     }
   };
 
-  findByDni = async (req: Request, res: Response, next: NextFunction) => {
+  findByDni = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
-      const chofer = await this.choferService.findByDni(dni);
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
       
+      const chofer = await this.choferService.findByDni(dni);
       if (!chofer) {
-        return res.status(404).json({
+        res.status(404).json({
           success: false,
           message: 'Chofer not found'
         });
+        return;
       }
 
       res.json({
@@ -41,7 +49,7 @@ export class ChoferController {
     }
   };
 
-  create = async (req: Request, res: Response, next: NextFunction) => {
+  create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const chofer = await this.choferService.create(req.body);
       res.status(201).json({
@@ -53,9 +61,17 @@ export class ChoferController {
     }
   };
 
-  update = async (req: Request, res: Response, next: NextFunction) => {
+  update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
+      
       const chofer = await this.choferService.update(dni, req.body);
       res.json({
         success: true,
@@ -66,9 +82,17 @@ export class ChoferController {
     }
   };
 
-  delete = async (req: Request, res: Response, next: NextFunction) => {
+  delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { dni } = req.params;
+      if (!dni) {
+        res.status(400).json({
+          success: false,
+          message: 'DNI parameter is required'
+        });
+        return;
+      }
+      
       await this.choferService.delete(dni);
       res.json({
         success: true,
