@@ -68,13 +68,10 @@ Sistema completo (frontend + backend) que permite gestionar la relación entre m
 - Express.js framework
 - MongoDB con Mongoose ODM
 - Express Validator para validaciones
-- Jest para testing unitario
 
 ### Infraestructura
 - Docker & Docker Compose
 - MongoDB en contenedor
-
-
 
 ## Instalación y Ejecución
 
@@ -159,4 +156,4 @@ Este proyecto fue desarrollado simulando un equipo colaborativo:
 - Interfaz web responsive con Material Design
 - Containerización completa con Docker
 - Testing unitario comprehensivo
-- Documentación completa de API
+- Documentación API
