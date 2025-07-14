@@ -44,7 +44,7 @@ import { Micro } from '../../models/micro.model';
             <div class="form-row">
               <mat-form-field>
                 <mat-label>DNI</mat-label>
-                <input matInput formControlName="dni" [readonly]="editingChico">
+                <input matInput formControlName="dni" [readonly]="!!editingChico">
               </mat-form-field>
               
               <mat-form-field>
