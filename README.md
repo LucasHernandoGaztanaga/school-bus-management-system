@@ -6,14 +6,33 @@ Sistema de gestión de micros escolares, alumnos y choferes desarrollado como pr
 
 Sistema completo (frontend + backend) que permite gestionar la relación entre micros escolares, los alumnos que viajan en ellos y los choferes asignados a cada micro.
 
+## Características de la Interfaz
+
+### Gestión de Estudiantes
+- Formularios reactivos con validaciones
+- Tabla interactiva con ordenamiento
+- Búsqueda y filtrado en tiempo real
+- Asignación visual a micros
+
+### Gestión de Micros
+- Interfaz intuitiva para capacidad
+- Visualización de ocupación
+- Asignación de choferes
+- Estado en tiempo real
+
+### Gestión de Choferes
+- Validación de licencias
+- Panel de disponibilidad
+- Historial de asignaciones
+
 ## Tecnologías Utilizadas
 
 ### Frontend
 - Angular 19 con TypeScript
-- Angular Material para interfaces modernas
+- Angular Material Design System
 - RxJS para programación reactiva
 - Formularios reactivos con validaciones
-- Testing con Jasmine y Karma
+- Jasmine y Karma para testing (85%+ coverage)
 
 ### Backend
 - Node.js con TypeScript
@@ -30,7 +49,7 @@ Sistema completo (frontend + backend) que permite gestionar la relación entre m
 ```
 school-bus-management-system/
 ├── backend/          # API REST en Node.js + TypeScript
-├── frontend/         # Aplicación Angular
+├── frontend/         # Aplicación Angular con Material Design
 ├── docker-compose.yml
 └── README.md
 ```
@@ -60,6 +79,20 @@ npm run dev
 cd frontend
 npm install
 ng serve
+```
+
+## Testing
+
+### Frontend
+```bash
+cd frontend
+ng test --code-coverage
+```
+
+### Backend
+```bash
+cd backend
+npm test
 ```
 
 ## Acceso
